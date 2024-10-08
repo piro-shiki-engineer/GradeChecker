@@ -12,7 +12,7 @@
     <img src="./preview/image1.png" alt="拡張機能管理ページのスクリーンショット" width=”450px”>
 </p>
 
-3. クローンまたはダウンロードしたフォルダ（manifest.json のあるフォルダ）を選択
+3.「パッケージ化されていない拡張機能を読み込む」を押下し、クローンまたはダウンロードしたフォルダ（manifest.json のあるフォルダ）を選択
 
 <p align="center">
     <img src="./preview/image2.png" alt="フォルダ選択画面のスクリーンショット" width="450px">
