@@ -1,0 +1,207 @@
+#graduation-requirements-result {
+    font-family: Arial, sans-serif;
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333333;
+}
+
+#graduation-requirements-result h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+    font-size: 1.4em;
+}
+
+#graduation-requirements-result h5 {
+    color: #2980b9;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-size: 1.2em;
+}
+
+#graduation-requirements-result h6 {
+    margin: 0;
+    font-size: 1em;
+}
+
+.requirement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.requirement-label {
+    flex-grow: 1;
+}
+
+.requirement-value {
+    display: flex;
+    align-items: center;
+    min-width: 80px;
+    justify-content: flex-end;
+}
+
+.current-value, .total-value {
+    min-width: 25px;
+    text-align: right;
+}
+
+.separator {
+    margin: 0 5px;
+}
+
+.unit {
+    margin-left: 5px;
+}
+
+.detailed-requirement {
+    flex-wrap: wrap;
+}
+
+.detailed-requirement .requirement-value {
+    order: 2;
+}
+
+.toggle-details {
+    order: 3;
+    margin-left: 10px;
+}
+
+.subject-list {
+    width: 100%;
+    order: 4;
+}
+
+.completed {
+    color: #1b5e20;
+    background-color: #e8f5e9;
+}
+
+.in-progress {
+    color: #01579b;
+    background-color: #e1f5fe;
+}
+
+.not-taken {
+    color: #b71c1c;
+    background-color: #ffebee;
+}
+
+.auto-registered {
+    background-color: #fff9c4;
+    border-left: 3px solid #fbc02d;
+}
+
+.auto-registered::after {
+    content: "自動登録";
+    font-size: 0.8em;
+    color: #fbc02d;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.overall-result {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1em;
+}
+
+.overall-result h5 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+}
+
+.overall-result p {
+    margin: 0;
+}
+
+.overall-result.fulfilled {
+    background-color: #4caf50;
+    color: white;
+}
+
+.overall-result.unfulfilled {
+    background-color: #f44336;
+    color: white;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.toggle-container span {
+    margin-right: 10px;
+}
+
+/* トグルスイッチのスタイル */
+#checkboxInput {
+    display: none;
+}
+
+.toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(82, 82, 82);
+    border-radius: 20px;
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.toggleSwitch::after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition-duration: .2s;
+    box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+    border: 5px solid white;
+}
+
+#checkboxInput:checked + .toggleSwitch::after {
+    transform: translateX(100%);
+    transition-duration: .2s;
+    background-color: white;
+}
+
+#checkboxInput:checked + .toggleSwitch {
+    background-color: rgb(148, 118, 255);
+    transition-duration: .2s;
+}
+
+@media (max-width: 768px) {
+    #graduation-requirements-result {
+        margin: 10px;
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .requirement {
+        padding: 10px;
+    }
+
+    button.toggle-details {
+        padding: 5px 10px;
+    }
+}
