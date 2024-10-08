@@ -1,0 +1,33 @@
+# Node modules (if you use Node.js or any npm packages)
+node_modules/
+*.log
+*.env
+
+# Build directories
+dist/
+build/
+
+# Local environment settings
+.DS_Store
+Thumbs.db
+
+# IDE/Editor specific settings (VSCode, IntelliJ, etc.)
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# MacOS specific files
+.DS_Store
+
+# Package lock files (if you're using npm or yarn)
+package-lock.json
+yarn.lock
+
+# Cache directories for tools like ESLint or Jest
+.eslintcache
+.jest/
+
+# Chrome extension generated files
+*.crx
+*.pem
