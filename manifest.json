@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "UTAS修了要件チェッカー",
+    "version": "1.0",
+    "description": "東京大学UTASの成績ページにて修了要件を確認できる機能を追加できます。",
+    "host_permissions": [
+        "https://utas.adm.u-tokyo.ac.jp/*"
+    ],
+    "content_scripts": [
+        {
+        "matches": [
+            "https://utas.adm.u-tokyo.ac.jp/campusweb/campusportal.do?page=main&tabId=si",
+            "https://utas.adm.u-tokyo.ac.jp/campusweb/*"
+        ],
+        "js": ["scripts/content-script.js"],
+        "css": ["styles/content-styles.css"],
+        "all_frames": true
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "web_accessible_resources": [
+        {
+        "resources": ["data/course-requirements.json"],
+        "matches": ["https://utas.adm.u-tokyo.ac.jp/*"]
+        }
+    ]
+}
