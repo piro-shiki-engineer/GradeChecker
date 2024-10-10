@@ -1,14 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const select = document.getElementById('courseSelect');
-
-    if (!select) {
-        console.error('コース選択要素が見つかりません');
-        return;
-    }
-
-    function updateSelectStatus(selectedCourse) {
-        console.log('コースが選択されました:', selectedCourse);
-    }
+    const checkButton = document.getElementById('checkRequirements');
+    const statusText = document.getElementById('status');
 
     fetch(chrome.runtime.getURL('data/course-requirements.json'))
         .then(response => response.json())
@@ -24,19 +17,30 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.storage.sync.get(['selectedCourse'], function(result) {
                 if (result.selectedCourse) {
                     select.value = result.selectedCourse;
-                    updateSelectStatus(result.selectedCourse);
+                    checkButton.disabled = false;
                 }
             });
-        })
-        .catch(error => {
-            console.error('コース要件の取得に失敗しました:', error);
-            select.innerHTML = '<option value="">コース情報の読み込みに失敗しました</option>';
         });
 
     select.addEventListener('change', function(e) {
         const selectedCourse = e.target.value;
         chrome.storage.sync.set({selectedCourse: selectedCourse}, function() {
-            updateSelectStatus(selectedCourse);
+            console.log('コースが保存されました:', selectedCourse);
+            checkButton.disabled = !selectedCourse;
         });
     });
-})
+
+    checkButton.addEventListener('click', function() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {action: "checkRequirements"}, function(response) {
+                if (response && response.success) {
+                    statusText.textContent = "要件チェックが完了しました。ページをご確認ください。";
+                    statusText.style.color = "#27ae60";
+                } else {
+                    statusText.textContent = "エラーが発生しました。UTASの成績ページを開いているか確認してください。";
+                    statusText.style.color = "#c0392b";
+                }
+            });
+        });
+    });
+});

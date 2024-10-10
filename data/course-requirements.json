@@ -1,0 +1,294 @@
+{
+    "courses": [
+        {
+            "id": "socio-information_and_communication_studies",
+            "name": "社会情報学コース",
+            "totalCreditsRequired": 30,
+            "mandatoryCredits": 18,
+            "electiveCredits": 12,
+            "detailedRequirements": [
+                {
+                    "category": "必修科目",
+                    "requiredCredits": 8,
+                    "subjects": [
+                        {
+                            "name": "社会情報学基礎",
+                            "credits": 2,
+                            "genres": ["社会情報学基礎"]
+                        },
+                        {
+                            "name": "社会情報学研究法",
+                            "credits": 2,
+                            "genres": ["社会情報学研究法"]
+                        },
+                        {
+                            "name": "学際情報学概論",
+                            "credits": 3,
+                            "genres": ["学際情報学概論"]
+                        },
+                        {
+                            "name": "研究倫理",
+                            "credits": 1,
+                            "genres": ["研究倫理"]
+                        }
+                    ]
+                },
+                {
+                    "category": "修士研究関連（自動登録）",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "学際情報学課題研究",
+                            "credits": 4,
+                            "genres": ["学際情報学課題研究"],
+                            "autoRegistered": true
+                        },
+                        {
+                            "name": "学際情報学個別指導",
+                            "credits": 6,
+                            "genres": ["学際情報学個別指導"],
+                            "autoRegistered": true
+                        }
+                    ]
+                },
+                {
+                    "category": "選択科目",
+                    "requiredCredits": 12,
+                    "description": "社会情報学コースまたは他のコースの科目から自由に選択"
+                }
+            ]
+        },
+        {
+            "id": "cultural_and_Human_information_studies",
+            "name": "文化・人間情報学コース",
+            "totalCreditsRequired": 30,
+            "mandatoryCredits": 18,
+            "electiveCredits": 12,
+            "detailedRequirements": [
+                {
+                    "category": "必修科目",
+                    "requiredCredits": 8,
+                    "subjects": [
+                        {
+                            "name": "文化・人間情報学基礎",
+                            "credits": 2,
+                            "genres": ["文化・人間情報学基礎"]
+                        },
+                        {
+                            "name": "文化・人間情報学研究法",
+                            "credits": 2,
+                            "genres": ["文化・人間情報学研究法"]
+                        },
+                        {
+                            "name": "学際情報学概論",
+                            "credits": 3,
+                            "genres": ["学際情報学概論"]
+                        },
+                        {
+                            "name": "研究倫理",
+                            "credits": 1,
+                            "genres": ["研究倫理"]
+                        }
+                    ]
+                },
+                {
+                    "category": "修士研究関連（自動登録）",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "学際情報学課題研究",
+                            "credits": 4,
+                            "genres": ["学際情報学課題研究"],
+                            "autoRegistered": true
+                        },
+                        {
+                            "name": "学際情報学個別指導",
+                            "credits": 6,
+                            "genres": ["学際情報学個別指導"],
+                            "autoRegistered": true
+                        }
+                    ]
+                },
+                {
+                    "category": "選択科目",
+                    "requiredCredits": 12,
+                    "description": "文化・人間情報学コースまたは他のコースの科目から自由に選択"
+                }
+            ]
+        },
+        {
+            "id": "emerging_design_and_informatics",
+            "name": "先端表現情報学コース",
+            "totalCreditsRequired": 30,
+            "mandatoryCredits": 18,
+            "electiveCredits": 12,
+            "detailedRequirements": [
+                {
+                    "category": "必修科目",
+                    "requiredCredits": 8,
+                    "subjects": [
+                        {
+                            "name": "先端表現情報学基礎",
+                            "credits": 2,
+                            "genres": ["先端表現情報学基礎"]
+                        },
+                        {
+                            "name": "先端表現情報学研究法",
+                            "credits": 2,
+                            "genres": ["先端表現情報学研究法"]
+                        },
+                        {
+                            "name": "学際情報学概論",
+                            "credits": 3,
+                            "genres": ["学際情報学概論"]
+                        },
+                        {
+                            "name": "研究倫理",
+                            "credits": 1,
+                            "genres": ["研究倫理"]
+                        }
+                    ]
+                },
+                {
+                    "category": "修士研究関連（自動登録）",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "学際情報学課題研究",
+                            "credits": 4,
+                            "genres": ["学際情報学課題研究"],
+                            "autoRegistered": true
+                        },
+                        {
+                            "name": "学際情報学個別指導",
+                            "credits": 6,
+                            "genres": ["学際情報学個別指導"],
+                            "autoRegistered": true
+                        }
+                    ]
+                },
+                {
+                    "category": "選択科目",
+                    "requiredCredits": 12,
+                    "description": "先端表現情報学コースまたは他のコースの科目から自由に選択"
+                }
+            ]
+        },
+        {
+            "id": "applied_computer_science",
+            "name": "総合分析情報学コース",
+            "totalCreditsRequired": 30,
+            "mandatoryCredits": 20,
+            "electiveCredits": 10,
+            "detailedRequirements": [
+                {
+                    "category": "必修科目",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "総合分析情報学基礎",
+                            "credits": 4,
+                            "genres": ["総合分析情報学基礎"]
+                        },
+                        {
+                            "name": "総合分析情報学研究法",
+                            "credits": 2,
+                            "genres": ["総合分析情報学研究法"]
+                        },
+                        {
+                            "name": "学際情報学概論",
+                            "credits": 3,
+                            "genres": ["学際情報学概論"]
+                        },
+                        {
+                            "name": "研究倫理",
+                            "credits": 1,
+                            "genres": ["研究倫理"]
+                        }
+                    ]
+                },
+                {
+                    "category": "修士研究関連（自動登録）",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "学際情報学課題研究",
+                            "credits": 4,
+                            "genres": ["学際情報学課題研究"],
+                            "autoRegistered": true
+                        },
+                        {
+                            "name": "学際情報学個別指導",
+                            "credits": 6,
+                            "genres": ["学際情報学個別指導"],
+                            "autoRegistered": true
+                        }
+                    ]
+                },
+                {
+                    "category": "選択科目",
+                    "requiredCredits": 10,
+                    "description": "総合分析情報学コースまたは他のコースの科目から自由に選択"
+                }
+            ]
+        },
+        {
+            "id": "biostatistics_and_bioinformatics",
+            "name": "生物統計情報学コース",
+            "totalCreditsRequired": 30,
+            "mandatoryCredits": 20,
+            "electiveCredits": 10,
+            "detailedRequirements": [
+                {
+                    "category": "必修科目",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "生物統計情報学基礎",
+                            "credits": 4,
+                            "genres": ["生物統計情報学基礎"]
+                        },
+                        {
+                            "name": "生物統計情報学研究法",
+                            "credits": 2,
+                            "genres": ["生物統計情報学研究法"]
+                        },
+                        {
+                            "name": "学際情報学概論",
+                            "credits": 3,
+                            "genres": ["学際情報学概論"]
+                        },
+                        {
+                            "name": "研究倫理",
+                            "credits": 1,
+                            "genres": ["研究倫理"]
+                        }
+                    ]
+                },
+                {
+                    "category": "修士研究関連（自動登録）",
+                    "requiredCredits": 10,
+                    "subjects": [
+                        {
+                            "name": "学際情報学課題研究",
+                            "credits": 4,
+                            "genres": ["学際情報学課題研究"],
+                            "autoRegistered": true
+                        },
+                        {
+                            "name": "学際情報学個別指導",
+                            "credits": 6,
+                            "genres": ["学際情報学個別指導"],
+                            "autoRegistered": true
+                        }
+                    ]
+                },
+                {
+                    "category": "選択科目",
+                    "requiredCredits": 10,
+                    "description": "生物統計情報学コースまたは他のコースの科目から自由に選択"
+                }
+            ]
+        }
+    ]
+}
