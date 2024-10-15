@@ -51,3 +51,16 @@ p {
     color: #34495e;
     margin-bottom: 0;
 }
+
+.settings-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.settings-link:hover {
+    text-decoration: underline;
+}

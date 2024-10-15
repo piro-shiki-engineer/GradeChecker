@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const select = document.getElementById('courseSelect');
-    const checkButton = document.getElementById('checkRequirements');
-    const statusText = document.getElementById('status');
+    const settingsLink = document.getElementById('settingsLink');
+
+    if (!select) {
+        console.error('コース選択要素が見つかりません');
+        return;
+    }
 
     fetch(chrome.runtime.getURL('data/course-requirements.json'))
         .then(response => response.json())
@@ -17,30 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.storage.sync.get(['selectedCourse'], function(result) {
                 if (result.selectedCourse) {
                     select.value = result.selectedCourse;
-                    checkButton.disabled = false;
                 }
             });
+        })
+        .catch(error => {
+            console.error('コース要件の取得に失敗しました:', error);
         });
 
     select.addEventListener('change', function(e) {
         const selectedCourse = e.target.value;
         chrome.storage.sync.set({selectedCourse: selectedCourse}, function() {
-            console.log('コースが保存されました:', selectedCourse);
-            checkButton.disabled = !selectedCourse;
+            console.log('コースが選択されました:', selectedCourse);
         });
     });
 
-    checkButton.addEventListener('click', function() {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {action: "checkRequirements"}, function(response) {
-                if (response && response.success) {
-                    statusText.textContent = "要件チェックが完了しました。ページをご確認ください。";
-                    statusText.style.color = "#27ae60";
-                } else {
-                    statusText.textContent = "エラーが発生しました。UTASの成績ページを開いているか確認してください。";
-                    statusText.style.color = "#c0392b";
-                }
-            });
-        });
+    // 設定ページへのリンクを処理
+    settingsLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        chrome.runtime.openOptionsPage();
     });
 });
