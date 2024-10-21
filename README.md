@@ -39,7 +39,7 @@
 
 ## 参考
 - UTOL のトップページに「課題・テスト一覧」を表示させるやつ, https://github.com/so298/improved_utol
-- 令和6年度 学際情報学府か目標, https://www.u-tokyo.ac.jp/content/400113836.pdf
+- 令和6年度 学際情報学府科目表, https://www.u-tokyo.ac.jp/content/400113836.pdf
 
 # 免責事項 / Disclaimer
 
