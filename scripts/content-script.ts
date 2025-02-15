@@ -1,4 +1,4 @@
-import { Grade, CourseRequirement, DetailedRequirement, SubjectConfig, RequirementResult, SubjectResult, GraduationRequirementsResult } from './types';
+import { Grade, CourseRequirement, DetailedRequirement, SubjectConfig, RequirementResult, SubjectResult, GraduationRequirementsResult } from '../types';
 
 let confirmedResults: GraduationRequirementsResult;
 let inProgressResults: GraduationRequirementsResult;
