@@ -7,8 +7,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "baseUrl": ".",
+    "sourceMap": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "popup/**/*.ts",
+    "scripts/**/*.ts",
+    "service-worker.ts",
+    "types.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }
