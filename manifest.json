@@ -15,7 +15,7 @@
             "https://utas.adm.u-tokyo.ac.jp/campusweb/campusportal.do?page=main&tabId=si",
             "https://utas.adm.u-tokyo.ac.jp/campusweb/*"
         ],
-        "js": ["dist/scripts/content-script.js"],
+        "js": ["scripts/content-script.js"],
         "css": ["styles/content-styles.css"],
         "all_frames": true
         }
@@ -29,7 +29,7 @@
         }
     },
     "background": {
-        "service_worker": "dist/service-worker.js"
+        "service_worker": "service-worker.js"
     },
     "icons": {
         "16": "icons/icon16.png",
