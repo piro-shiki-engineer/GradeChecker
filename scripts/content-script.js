@@ -1,62 +1,60 @@
-let confirmedResults, inProgressResults, courseName;
+"use strict";
+/// <reference path="./types.ts" />
+let confirmedResults;
+let inProgressResults;
+let courseName;
 let showInProgress = false;
-
 function getGradesTable() {
+    var _a;
     const iframe = document.querySelector('iframe');
-    if (!iframe) return null;
-
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
+    if (!iframe)
+        return null;
+    const iframeDocument = iframe.contentDocument || ((_a = iframe.contentWindow) === null || _a === void 0 ? void 0 : _a.document);
+    if (!iframeDocument)
+        return null;
     const tables = iframeDocument.querySelectorAll('table');
-    if (tables.length < 2) return null;
-
+    if (tables.length < 2)
+        return null;
     return tables[1];
 }
-
 function parseGrades(table) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
     const grades = [];
     const rows = table.querySelectorAll('tr');
-
     for (let i = 1; i < rows.length; i++) {
         const cells = rows[i].querySelectorAll('td');
-        if (cells.length >= 13) {  // ヘッダーを除く行の列数
+        if (cells.length >= 13) { // ヘッダーを除く行の列数
             grades.push({
-                no: cells[0].textContent.trim(),
-                code: cells[1].textContent.trim(),
-                subject: cells[2].textContent.trim(),
-                instructor: cells[3].textContent.trim(),
-                year: cells[4].textContent.trim(),
-                semester: cells[5].textContent.trim(),
-                credit: parseFloat(cells[6].textContent.trim()) || 0,
-                grade: cells[7].textContent.trim(),
-                category: cells[8].textContent.trim(),
-                gp: parseFloat(cells[9].textContent.trim()) || 0,
-                rankingRate: cells[10].textContent.trim(),
-                numStudents: parseInt(cells[11].textContent.trim()) || 0,
-                passFail: cells[12].textContent.trim()
+                no: ((_a = cells[0].textContent) === null || _a === void 0 ? void 0 : _a.trim()) || '',
+                code: ((_b = cells[1].textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '',
+                subject: ((_c = cells[2].textContent) === null || _c === void 0 ? void 0 : _c.trim()) || '',
+                instructor: ((_d = cells[3].textContent) === null || _d === void 0 ? void 0 : _d.trim()) || '',
+                year: ((_e = cells[4].textContent) === null || _e === void 0 ? void 0 : _e.trim()) || '',
+                semester: ((_f = cells[5].textContent) === null || _f === void 0 ? void 0 : _f.trim()) || '',
+                credit: parseFloat(((_g = cells[6].textContent) === null || _g === void 0 ? void 0 : _g.trim()) || '0') || 0,
+                grade: ((_h = cells[7].textContent) === null || _h === void 0 ? void 0 : _h.trim()) || '',
+                category: ((_j = cells[8].textContent) === null || _j === void 0 ? void 0 : _j.trim()) || '',
+                gp: parseFloat(((_k = cells[9].textContent) === null || _k === void 0 ? void 0 : _k.trim()) || '0') || 0,
+                rankingRate: ((_l = cells[10].textContent) === null || _l === void 0 ? void 0 : _l.trim()) || '',
+                numStudents: parseInt(((_m = cells[11].textContent) === null || _m === void 0 ? void 0 : _m.trim()) || '0') || 0,
+                passFail: ((_o = cells[12].textContent) === null || _o === void 0 ? void 0 : _o.trim()) || ''
             });
         }
     }
-
     return grades;
 }
-
 function matchSubject(subjectName, subjectConfig) {
-    return subjectConfig.genres.some(genre => subjectName.includes(genre));
+    return subjectConfig.genres.some((genre) => subjectName.includes(genre));
 }
-
 function isInProgress(grade) {
     return grade.grade === '履修中';
 }
-
 function isGradeConfirmed(grade) {
     return !isInProgress(grade) && grade.passFail === '合';
 }
-
 function shouldIncludeGrade(grade, includeInProgress) {
     return isGradeConfirmed(grade) || (includeInProgress && isInProgress(grade));
 }
-
 function checkDetailedRequirements(grades, courseRequirements, includeInProgress = false) {
     const results = {
         totalCredits: { current: 0, required: courseRequirements.totalCreditsRequired, fulfilled: false },
@@ -64,44 +62,38 @@ function checkDetailedRequirements(grades, courseRequirements, includeInProgress
         electiveCredits: { current: 0, required: courseRequirements.electiveCredits, fulfilled: false },
         detailedRequirements: []
     };
-
     // 履修中の科目と確定済みの科目を分離
     const confirmedGrades = [];
     const inProgressGrades = [];
     grades.forEach(grade => {
         if (isInProgress(grade)) {
             inProgressGrades.push(grade);
-        } else if (isGradeConfirmed(grade)) {
+        }
+        else if (isGradeConfirmed(grade)) {
             confirmedGrades.push(grade);
         }
     });
-
     // 処理する成績リストを決定
     const gradesToProcess = includeInProgress ? [...confirmedGrades, ...inProgressGrades] : confirmedGrades;
-
     // 使用済みの科目を追跡するセット
     const usedSubjects = new Set();
-
     // 必修科目、修士研究関連（自動登録）、選択科目の処理
-    courseRequirements.detailedRequirements.forEach(requirement => {
+    courseRequirements.detailedRequirements.forEach((requirement) => {
         const requirementResult = processRequirement(requirement, gradesToProcess, usedSubjects, includeInProgress);
         results.detailedRequirements.push(requirementResult);
-
         if (requirement.category === "必修科目" || requirement.category === "修士研究関連（自動登録）") {
             results.mandatoryCredits.current += requirementResult.current;
-        } else if (requirement.category === "選択科目") {
+        }
+        else if (requirement.category === "選択科目") {
             results.electiveCredits.current += requirementResult.current;
         }
     });
-
     results.totalCredits.current = results.mandatoryCredits.current + results.electiveCredits.current;
     results.totalCredits.fulfilled = results.totalCredits.current >= results.totalCredits.required;
     results.mandatoryCredits.fulfilled = results.mandatoryCredits.current >= results.mandatoryCredits.required;
     results.electiveCredits.fulfilled = results.electiveCredits.current >= results.electiveCredits.required;
-
     return results;
 }
-
 function processRequirement(requirement, gradesToProcess, usedSubjects, includeInProgress) {
     const requirementResult = {
         category: requirement.category,
@@ -110,9 +102,8 @@ function processRequirement(requirement, gradesToProcess, usedSubjects, includeI
         fulfilled: false,
         subjects: []
     };
-
     if (requirement.subjects) {
-        requirement.subjects.forEach(subjectConfig => {
+        requirement.subjects.forEach((subjectConfig) => {
             if (subjectConfig.autoRegistered) {
                 // 自動登録科目の処理
                 requirementResult.current += subjectConfig.credits;
@@ -123,14 +114,12 @@ function processRequirement(requirement, gradesToProcess, usedSubjects, includeI
                     inProgress: true,
                     autoRegistered: true
                 });
-            } else {
+            }
+            else {
                 // 通常の科目の処理
-                const matchedGrades = gradesToProcess.filter(grade =>
-                    matchSubject(grade.subject, subjectConfig) &&
+                const matchedGrades = gradesToProcess.filter(grade => matchSubject(grade.subject, subjectConfig) &&
                     shouldIncludeGrade(grade, includeInProgress) &&
-                    !usedSubjects.has(grade.subject)
-                );
-
+                    !usedSubjects.has(grade.subject));
                 let creditsToAdd = 0;
                 matchedGrades.forEach(matchedGrade => {
                     if (creditsToAdd < subjectConfig.credits) {
@@ -146,7 +135,6 @@ function processRequirement(requirement, gradesToProcess, usedSubjects, includeI
                         usedSubjects.add(matchedGrade.subject);
                     }
                 });
-
                 if (creditsToAdd < subjectConfig.credits) {
                     requirementResult.subjects.push({
                         name: subjectConfig.name,
@@ -157,7 +145,8 @@ function processRequirement(requirement, gradesToProcess, usedSubjects, includeI
                 }
             }
         });
-    } else if (requirement.category === "選択科目") {
+    }
+    else if (requirement.category === "選択科目") {
         // 選択科目の処理
         gradesToProcess.forEach(grade => {
             if (!usedSubjects.has(grade.subject) && shouldIncludeGrade(grade, includeInProgress)) {
@@ -172,11 +161,9 @@ function processRequirement(requirement, gradesToProcess, usedSubjects, includeI
             }
         });
     }
-
     requirementResult.fulfilled = requirementResult.current >= requirementResult.required;
     return requirementResult;
 }
-
 function displayResults() {
     const resultDiv = document.getElementById('graduation-requirements-result');
     if (!resultDiv) {
@@ -185,14 +172,18 @@ function displayResults() {
         const iframe = document.querySelector('iframe');
         if (iframe && iframe.parentNode) {
             iframe.parentNode.insertBefore(newResultDiv, iframe.nextSibling);
-        } else {
+        }
+        else {
             document.body.appendChild(newResultDiv);
         }
     }
-
     const results = showInProgress ? inProgressResults : confirmedResults;
-
-    document.getElementById('graduation-requirements-result').innerHTML = `
+    if (!results)
+        return;
+    const resultsElement = document.getElementById('graduation-requirements-result');
+    if (!resultsElement)
+        return;
+    resultsElement.innerHTML = `
         <h3>${courseName}の修了要件チェック結果</h3>
         <div class="toggle-container">
             <span>履修中の科目を含める</span>
@@ -203,11 +194,9 @@ function displayResults() {
             ${createResultHTML(results)}
         </div>
     `;
-
     setupToggleSwitch();
     addToggleEventListeners();
 }
-
 function createResultHTML(results) {
     let html = `
         <div class="requirement ${results.totalCredits.fulfilled ? 'fulfilled' : 'unfulfilled'}">
@@ -236,8 +225,7 @@ function createResultHTML(results) {
         </div>
         <h5>詳細要件:</h5>
     `;
-
-    results.detailedRequirements.forEach(req => {
+    results.detailedRequirements.forEach((req) => {
         html += `
             <div class="requirement detailed-requirement ${req.fulfilled ? 'fulfilled' : 'unfulfilled'}">
                 <span class="requirement-label">${req.category}</span>
@@ -249,7 +237,7 @@ function createResultHTML(results) {
                 </span>
                 <button class="toggle-details">詳細を表示</button>
                 <ul class="subject-list" style="display: none;">
-                    ${req.subjects.map(subject => `
+                    ${req.subjects.map((subject) => `
                         <li class="${subject.completed ? 'completed' : subject.inProgress ? 'in-progress' : 'not-taken'} ${subject.autoRegistered ? 'auto-registered' : ''}">
                             ${subject.name} (${subject.credits}単位) 
                             ${subject.completed ? '確定済み' : subject.inProgress ? '履修中' : '未履修'}
@@ -260,92 +248,91 @@ function createResultHTML(results) {
             </div>
         `;
     });
-
     const isGraduationRequirementsMet = results.totalCredits.fulfilled &&
         results.mandatoryCredits.fulfilled &&
         results.electiveCredits.fulfilled;
-
     html += `
         <div class="overall-result ${isGraduationRequirementsMet ? 'fulfilled' : 'unfulfilled'}">
             <h5>修了要件充足状況</h5>
             <p>${isGraduationRequirementsMet ? '修了要件を満たしています' : '修了要件を満たしていません'}</p>
         </div>
     `;
-
     return html;
 }
-
 function setupToggleSwitch() {
     const checkbox = document.getElementById('checkboxInput');
-    checkbox.addEventListener('change', function() {
+    if (!checkbox)
+        return;
+    checkbox.addEventListener('change', function () {
         showInProgress = this.checked;
         displayResults();
     });
 }
-
 function addToggleEventListeners() {
     document.querySelectorAll('.toggle-details').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const subjectList = this.nextElementSibling;
             if (subjectList.style.display === 'none') {
                 subjectList.style.display = 'block';
                 this.textContent = '詳細を隠す';
-            } else {
+            }
+            else {
                 subjectList.style.display = 'none';
                 this.textContent = '詳細を表示';
             }
         });
     });
 }
-
 function main() {
     const table = getGradesTable();
     if (table) {
         const grades = parseGrades(table);
         if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
-            chrome.storage.sync.get(['selectedCourse'], function(result) {
+            chrome.storage.sync.get(['selectedCourse'], function (result) {
                 const selectedCourse = result.selectedCourse || 'applied_computer_science';
                 fetchCourseRequirements(selectedCourse, grades);
             });
-        } else {
+        }
+        else {
             console.error('chrome.storage.sync is not available. Falling back to default course.');
             fetchCourseRequirements('applied_computer_science', grades);
         }
-    } else {
+    }
+    else {
         console.log("成績テーブルが見つかりません");
     }
 }
-
 function fetchCourseRequirements(selectedCourse, grades) {
     fetch(chrome.runtime.getURL('data/course-requirements.json'))
         .then(response => response.json())
         .then(data => {
-            const courseRequirements = data.courses.find(course => course.id === selectedCourse);
-            if (courseRequirements) {
-                confirmedResults = checkDetailedRequirements(grades, courseRequirements, false);
-                inProgressResults = checkDetailedRequirements(grades, courseRequirements, true);
-                courseName = courseRequirements.name;
-                displayResults();
-            } else {
-                console.log("選択されたコースが見つかりません");
-            }
-        })
+        const courseRequirements = data.courses.find((course) => course.id === selectedCourse);
+        if (courseRequirements) {
+            confirmedResults = checkDetailedRequirements(grades, courseRequirements, false);
+            inProgressResults = checkDetailedRequirements(grades, courseRequirements, true);
+            courseName = courseRequirements.name;
+            displayResults();
+        }
+        else {
+            console.log("選択されたコースが見つかりません");
+        }
+    })
         .catch(error => {
-            console.error('コース要件の取得に失敗しました:', error);
-        });
+        console.error('コース要件の取得に失敗しました:', error);
+    });
 }
-
 function checkAndRunMain() {
     if (document.readyState === "complete") {
         const table = getGradesTable();
         if (table) {
             main();
-        } else {
+        }
+        else {
             setTimeout(checkAndRunMain, 1000);
         }
-    } else {
+    }
+    else {
         document.addEventListener('readystatechange', checkAndRunMain);
     }
 }
-
 checkAndRunMain();

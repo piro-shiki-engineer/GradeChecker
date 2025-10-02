@@ -1,14 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "None",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "outDir": "dist",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["DOM", "ESNext"]
+    },
+    "include": ["src/**/*", "popup/**/*"],
+    "exclude": ["node_modules", "dist"]
 }

@@ -71,12 +71,4 @@ interface GraduationRequirementsResult {
     detailedRequirements: RequirementResult[];
 }
 
-export type {
-    Grade,
-    CourseRequirement,
-    DetailedRequirement,
-    SubjectConfig,
-    RequirementResult,
-    SubjectResult,
-    GraduationRequirementsResult
-};
+// グローバル型定義として使用（exportを削除してモジュール化を回避）

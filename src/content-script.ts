@@ -1,4 +1,4 @@
-import { Grade, CourseRequirement, DetailedRequirement, SubjectConfig, RequirementResult, SubjectResult, GraduationRequirementsResult } from './types';
+/// <reference path="./types.ts" />
 
 let confirmedResults: GraduationRequirementsResult;
 let inProgressResults: GraduationRequirementsResult;
@@ -47,7 +47,7 @@ function parseGrades(table: HTMLTableElement): Grade[] {
 }
 
 function matchSubject(subjectName: string, subjectConfig: SubjectConfig): boolean {
-    return subjectConfig.genres.some(genre => subjectName.includes(genre));
+    return subjectConfig.genres.some((genre: string) => subjectName.includes(genre));
 }
 
 function isInProgress(grade: Grade): boolean {
@@ -88,7 +88,7 @@ function checkDetailedRequirements(grades: Grade[], courseRequirements: CourseRe
     const usedSubjects = new Set<string>();
 
     // 必修科目、修士研究関連（自動登録）、選択科目の処理
-    courseRequirements.detailedRequirements.forEach(requirement => {
+    courseRequirements.detailedRequirements.forEach((requirement: DetailedRequirement) => {
         const requirementResult = processRequirement(requirement, gradesToProcess, usedSubjects, includeInProgress);
         results.detailedRequirements.push(requirementResult);
 
@@ -122,7 +122,7 @@ function processRequirement(
     };
 
     if (requirement.subjects) {
-        requirement.subjects.forEach(subjectConfig => {
+        requirement.subjects.forEach((subjectConfig: SubjectConfig) => {
             if (subjectConfig.autoRegistered) {
                 // 自動登録科目の処理
                 requirementResult.current += subjectConfig.credits;
@@ -251,7 +251,7 @@ function createResultHTML(results: GraduationRequirementsResult): string {
         <h5>詳細要件:</h5>
     `;
 
-    results.detailedRequirements.forEach(req => {
+    results.detailedRequirements.forEach((req: RequirementResult) => {
         html += `
             <div class="requirement detailed-requirement ${req.fulfilled ? 'fulfilled' : 'unfulfilled'}">
                 <span class="requirement-label">${req.category}</span>
@@ -263,7 +263,7 @@ function createResultHTML(results: GraduationRequirementsResult): string {
                 </span>
                 <button class="toggle-details">詳細を表示</button>
                 <ul class="subject-list" style="display: none;">
-                    ${req.subjects.map(subject => `
+                    ${req.subjects.map((subject: SubjectResult) => `
                         <li class="${subject.completed ? 'completed' : subject.inProgress ? 'in-progress' : 'not-taken'} ${subject.autoRegistered ? 'auto-registered' : ''}">
                             ${subject.name} (${subject.credits}単位) 
                             ${subject.completed ? '確定済み' : subject.inProgress ? '履修中' : '未履修'}
